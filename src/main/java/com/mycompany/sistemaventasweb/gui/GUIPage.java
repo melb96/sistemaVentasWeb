@@ -166,6 +166,11 @@ public class GUIPage extends javax.swing.JFrame {
         btnForo.setText("Ir al foro");
         btnForo.setMaximumSize(new java.awt.Dimension(105, 24));
         btnForo.setMinimumSize(new java.awt.Dimension(105, 24));
+        btnForo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForoActionPerformed(evt);
+            }
+        });
         bgPanel.add(btnForo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
 
         btnAceptar.setBackground(new java.awt.Color(255, 102, 153));
@@ -493,7 +498,7 @@ public class GUIPage extends javax.swing.JFrame {
         btnModificar.setVisible(false);
         btnEliminar.setVisible(false);
         btnAceptar.setVisible(false);
-        btnCancelar.setVisible(false);
+        btnCancelar.setVisible(true);
         btnAgrCarrito.setVisible(true);    
         btnForo.setVisible(true);
         btnIrCarrito.setVisible(true);
@@ -527,6 +532,7 @@ public class GUIPage extends javax.swing.JFrame {
         }
         
     }
+    
     
     //Metodo modificar Datos
     
@@ -831,6 +837,14 @@ public class GUIPage extends javax.swing.JFrame {
         GUILogIn iLogIn = new GUILogIn();
         iLogIn.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
+
+    private void btnForoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForoActionPerformed
+        this.setVisible(false);
+        GUIForo iForo = new GUIForo();
+        iForo.setVisible(true);
+        GUIPost iPost = new GUIPost();
+        iPost.cargarDatos();
+    }//GEN-LAST:event_btnForoActionPerformed
 
     /**
      * @param args the command line arguments

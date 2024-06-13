@@ -6,6 +6,12 @@ package com.mycompany.sistemaventasweb.gui;
 
 import com.mycompany.sistemaventasweb.clases.Post;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
@@ -14,31 +20,28 @@ import javax.swing.table.DefaultTableModel;
  *
  * @author melb
  */
-public class GUIForo extends javax.swing.JFrame {
+public class GUIPost extends javax.swing.JFrame {
 
     /**
      * Creates new form GUIForo
      */
     
     int xMouse, yMouse;
-    GUIPost iPost = new GUIPost();
+    private List<Post> listaPosts;
     DefaultTableModel modelo;
     private int selectedRow = -1;
     
-    public GUIForo() {
-        
+    public GUIPost() {
         initComponents();
-        iPost.cargarDatos();
         
         //Setear titulos de tabla
         String [] titulos = {"Titulo","Autor","Disco","Contenido"};
         modelo = new DefaultTableModel(null,titulos);
         tblPosts.setModel(modelo);
         
-        cargarPostsEnTabla();
+        listaPosts = new ArrayList<>();
         
         defaultCampos();
-
     }
 
     /**
@@ -50,13 +53,14 @@ public class GUIForo extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        bgPanel = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnUpdatePost = new javax.swing.JButton();
-        btnAddPost = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
+        btnPublicar = new javax.swing.JButton();
+        btnForo = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         lblRightBg = new javax.swing.JLabel();
-        lblTituloForo = new javax.swing.JLabel();
+        lblUser = new javax.swing.JLabel();
         header = new javax.swing.JPanel();
         btnExit = new javax.swing.JPanel();
         exitTxt = new javax.swing.JLabel();
@@ -65,15 +69,15 @@ public class GUIForo extends javax.swing.JFrame {
         lblCerrarSesion = new javax.swing.JLabel();
         btnHome = new javax.swing.JPanel();
         lblHome = new javax.swing.JLabel();
-        lblUser = new javax.swing.JLabel();
+        lblTituloPost = new javax.swing.JLabel();
+        lblNuevoPost1 = new javax.swing.JLabel();
         lblNuevoPost = new javax.swing.JLabel();
-        txtDiscoPost = new javax.swing.JTextField();
-        txtAutorPost = new javax.swing.JTextField();
         txtTituloPost = new javax.swing.JTextField();
         jSeparator2 = new javax.swing.JSeparator();
-        jSeparator3 = new javax.swing.JSeparator();
+        txtAutorPost = new javax.swing.JTextField();
         jSeparator4 = new javax.swing.JSeparator();
-        lblTituloPost = new javax.swing.JLabel();
+        txtDiscoPost = new javax.swing.JTextField();
+        jSeparator3 = new javax.swing.JSeparator();
         jScrollPane1 = new javax.swing.JScrollPane();
         txtAreaPost = new javax.swing.JTextArea();
         jScrollPane2 = new javax.swing.JScrollPane();
@@ -86,30 +90,11 @@ public class GUIForo extends javax.swing.JFrame {
         setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 255, 255));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        bgPanel.setBackground(new java.awt.Color(255, 255, 255));
+        bgPanel.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         lblLogo.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/disco3.png")); // NOI18N
-        jPanel1.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
-
-        btnUpdatePost.setBackground(new java.awt.Color(255, 102, 153));
-        btnUpdatePost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
-        btnUpdatePost.setForeground(new java.awt.Color(0, 0, 0));
-        btnUpdatePost.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/actualizar.png")); // NOI18N
-        btnUpdatePost.setText("Cargar");
-        jPanel1.add(btnUpdatePost, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
-
-        btnAddPost.setBackground(new java.awt.Color(255, 102, 153));
-        btnAddPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
-        btnAddPost.setForeground(new java.awt.Color(0, 0, 0));
-        btnAddPost.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/mas.png")); // NOI18N
-        btnAddPost.setText("Post");
-        btnAddPost.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnAddPostActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btnAddPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, -1));
+        bgPanel.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
 
         btnCancelar.setBackground(new java.awt.Color(255, 102, 153));
         btnCancelar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
@@ -121,16 +106,55 @@ public class GUIForo extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 110, -1));
+        bgPanel.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 260, 110, -1));
+
+        btnPublicar.setBackground(new java.awt.Color(255, 102, 153));
+        btnPublicar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
+        btnPublicar.setForeground(new java.awt.Color(0, 0, 0));
+        btnPublicar.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/controlar.png")); // NOI18N
+        btnPublicar.setText("Publicar");
+        btnPublicar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnPublicarMouseClicked(evt);
+            }
+        });
+        bgPanel.add(btnPublicar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 220, 110, -1));
+
+        btnForo.setBackground(new java.awt.Color(255, 102, 153));
+        btnForo.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
+        btnForo.setForeground(new java.awt.Color(0, 0, 0));
+        btnForo.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/usuarios-alt.png")); // NOI18N
+        btnForo.setText("Ir al foro");
+        btnForo.setMaximumSize(new java.awt.Dimension(105, 24));
+        btnForo.setMinimumSize(new java.awt.Dimension(105, 24));
+        btnForo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnForoActionPerformed(evt);
+            }
+        });
+        bgPanel.add(btnForo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
+
+        btnAgregar.setBackground(new java.awt.Color(255, 102, 153));
+        btnAgregar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
+        btnAgregar.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgregar.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/mas.png")); // NOI18N
+        btnAgregar.setText("Agregar");
+        btnAgregar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnAgregarActionPerformed(evt);
+            }
+        });
+        bgPanel.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, -1));
 
         lblRightBg.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/bgImagen.jpg")); // NOI18N
         lblRightBg.setText("jLabel1");
-        jPanel1.add(lblRightBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 140, 500));
+        bgPanel.add(lblRightBg, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 0, 140, 500));
 
-        lblTituloForo.setFont(new java.awt.Font("Roboto Slab", 1, 24)); // NOI18N
-        lblTituloForo.setForeground(new java.awt.Color(255, 102, 153));
-        lblTituloForo.setText("FORO DE DISCUSION");
-        jPanel1.add(lblTituloForo, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 60, -1, -1));
+        lblUser.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
+        lblUser.setForeground(new java.awt.Color(255, 102, 153));
+        lblUser.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/usuario.png")); // NOI18N
+        lblUser.setText("Bienvenido!");
+        bgPanel.add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, -1, -1));
 
         header.setBackground(new java.awt.Color(255, 255, 255));
         header.addMouseMotionListener(new java.awt.event.MouseMotionAdapter() {
@@ -267,47 +291,61 @@ public class GUIForo extends javax.swing.JFrame {
                 .addGap(0, 0, Short.MAX_VALUE))
         );
 
-        jPanel1.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
+        bgPanel.add(header, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 800, 40));
 
-        lblUser.setFont(new java.awt.Font("Roboto Black", 1, 13)); // NOI18N
-        lblUser.setForeground(new java.awt.Color(255, 102, 153));
-        lblUser.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/usuario.png")); // NOI18N
-        lblUser.setText("Bienvenido!");
-        jPanel1.add(lblUser, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 60, -1, -1));
+        lblTituloPost.setFont(new java.awt.Font("Roboto Slab", 1, 24)); // NOI18N
+        lblTituloPost.setForeground(new java.awt.Color(255, 102, 153));
+        lblTituloPost.setText("¡POSTEA TU OPINION!");
+        bgPanel.add(lblTituloPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, -1));
+
+        lblNuevoPost1.setFont(new java.awt.Font("Roboto Slab", 1, 14)); // NOI18N
+        lblNuevoPost1.setForeground(new java.awt.Color(255, 102, 153));
+        lblNuevoPost1.setText("Escribe tu opinion:");
+        bgPanel.add(lblNuevoPost1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 110, -1, -1));
 
         lblNuevoPost.setFont(new java.awt.Font("Roboto Slab", 1, 18)); // NOI18N
         lblNuevoPost.setForeground(new java.awt.Color(255, 102, 153));
-        lblNuevoPost.setText("Post reciente:");
-        jPanel1.add(lblNuevoPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 120, -1, -1));
-
-        txtDiscoPost.setBackground(new java.awt.Color(255, 255, 255));
-        txtDiscoPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
-        txtDiscoPost.setForeground(new java.awt.Color(204, 204, 204));
-        txtDiscoPost.setText("Nombre del disco");
-        txtDiscoPost.setBorder(null);
-        jPanel1.add(txtDiscoPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 230, 180, -1));
-
-        txtAutorPost.setBackground(new java.awt.Color(255, 255, 255));
-        txtAutorPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
-        txtAutorPost.setForeground(new java.awt.Color(204, 204, 204));
-        txtAutorPost.setText("Autor del post");
-        txtAutorPost.setBorder(null);
-        jPanel1.add(txtAutorPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 190, 180, -1));
+        lblNuevoPost.setText("Nuevo Post");
+        bgPanel.add(lblNuevoPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 110, -1, -1));
 
         txtTituloPost.setBackground(new java.awt.Color(255, 255, 255));
         txtTituloPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
         txtTituloPost.setForeground(new java.awt.Color(204, 204, 204));
-        txtTituloPost.setText("Titulo del post");
+        txtTituloPost.setText("Ingrese titulo del post");
         txtTituloPost.setBorder(null);
-        jPanel1.add(txtTituloPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 150, 180, 20));
-        jPanel1.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 180, 20));
-        jPanel1.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 210, 180, 20));
-        jPanel1.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 250, 180, 20));
+        txtTituloPost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtTituloPostMouseClicked(evt);
+            }
+        });
+        bgPanel.add(txtTituloPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 140, 180, 20));
+        bgPanel.add(jSeparator2, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 180, 20));
 
-        lblTituloPost.setFont(new java.awt.Font("Roboto Slab", 1, 14)); // NOI18N
-        lblTituloPost.setForeground(new java.awt.Color(255, 102, 153));
-        lblTituloPost.setText("Contenido del post:");
-        jPanel1.add(lblTituloPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, -1, -1));
+        txtAutorPost.setBackground(new java.awt.Color(255, 255, 255));
+        txtAutorPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
+        txtAutorPost.setForeground(new java.awt.Color(204, 204, 204));
+        txtAutorPost.setText("Ingrese nombre del autor");
+        txtAutorPost.setBorder(null);
+        txtAutorPost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtAutorPostMouseClicked(evt);
+            }
+        });
+        bgPanel.add(txtAutorPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 180, 180, -1));
+        bgPanel.add(jSeparator4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 240, 180, 20));
+
+        txtDiscoPost.setBackground(new java.awt.Color(255, 255, 255));
+        txtDiscoPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
+        txtDiscoPost.setForeground(new java.awt.Color(204, 204, 204));
+        txtDiscoPost.setText("Ingrese nombre del disco");
+        txtDiscoPost.setBorder(null);
+        txtDiscoPost.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txtDiscoPostMouseClicked(evt);
+            }
+        });
+        bgPanel.add(txtDiscoPost, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 220, 180, -1));
+        bgPanel.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 200, 180, 20));
 
         txtAreaPost.setBackground(new java.awt.Color(255, 255, 255));
         txtAreaPost.setColumns(20);
@@ -316,7 +354,7 @@ public class GUIForo extends javax.swing.JFrame {
         txtAreaPost.setBorder(null);
         jScrollPane1.setViewportView(txtAreaPost);
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 140, 360, 110));
+        bgPanel.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 130, 360, 110));
 
         tblPosts.setBackground(new java.awt.Color(255, 255, 255));
         tblPosts.setFont(new java.awt.Font("Roboto Slab", 1, 14)); // NOI18N
@@ -340,27 +378,95 @@ public class GUIForo extends javax.swing.JFrame {
         });
         jScrollPane2.setViewportView(tblPosts);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 610, 200));
+        bgPanel.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 280, 610, 200));
 
         lblListaPosts.setFont(new java.awt.Font("Roboto Slab", 1, 18)); // NOI18N
         lblListaPosts.setForeground(new java.awt.Color(255, 102, 153));
         lblListaPosts.setText("LISTA DE POSTS");
-        jPanel1.add(lblListaPosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
+        bgPanel.add(lblListaPosts, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 250, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bgPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(bgPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    
+    public void defaultCampos(){
+        
+        btnAgregar.setEnabled(true);
+        btnForo.setEnabled(true);
+        btnPublicar.setEnabled(false);
+        btnCancelar.setEnabled(false);
+        txtTituloPost.setEditable(false);
+        txtAutorPost.setEditable(false);
+        txtDiscoPost.setEditable(false);
+        txtAreaPost.setEditable(false);
+        
+    }
+    
+    //Metodo text field Titulo
+    
+    public void defaultFieldTitulo(){
+        if(txtTituloPost.getText().equals("Ingrese titulo del post")){
+            txtTituloPost.setText("");
+            txtTituloPost.setForeground(Color.black);
+        }
+        if(txtAutorPost.getText().isEmpty()) {
+            txtAutorPost.setText("Ingrese nombre del autor");
+            txtAutorPost.setForeground(new Color (204,204,204));
+        }
+        if(txtDiscoPost.getText().isEmpty()){
+            txtDiscoPost.setText("Ingrese nombre del disco");
+            txtDiscoPost.setForeground(new Color (204,204,204));           
+        }    
+    }
+    
+    //Metodo text field Autor
+    
+    public void defaultFieldAutor(){
+        
+        if(txtAutorPost.getText().equals("Ingrese nombre del autor")){
+            txtAutorPost.setText("");
+            txtAutorPost.setForeground(Color.black);
+        }
+        if(txtDiscoPost.getText().isEmpty()) {
+            txtDiscoPost.setText("Ingrese nombre del disco");
+            txtDiscoPost.setForeground(new Color (204,204,204));
+        }
+        if(txtTituloPost.getText().isEmpty()){
+            txtTituloPost.setText("Ingrese titulo del post");
+            txtTituloPost.setForeground(new Color (204,204,204));           
+        }
+        
+    }
+    
+    //Metodo text field Precio
+    
+    public void defaultFieldDisco(){
+        
+        if(txtDiscoPost.getText().equals("Ingrese nombre del disco")){
+            txtDiscoPost.setText("");
+            txtDiscoPost.setForeground(Color.black);
+        }
+        if(txtAutorPost.getText().isEmpty()) {
+            txtAutorPost.setText("Ingrese nombre del autor");
+            txtAutorPost.setForeground(new Color (204,204,204));
+        }
+        if(txtTituloPost.getText().isEmpty()){
+            txtTituloPost.setText("Ingrese titulo del post");
+            txtTituloPost.setForeground(new Color (204,204,204));           
+        }
+        
+    }
     
     //Metodo limpiar campos
     
@@ -370,36 +476,81 @@ public class GUIForo extends javax.swing.JFrame {
         txtAreaPost.setText("");
         txtAutorPost.setText("");
         txtDiscoPost.setText("");
+        defaultFieldTitulo();
+        defaultFieldAutor();
+        defaultFieldDisco();
+        defaultCampos();
         
     }
     
-    public void defaultCampos(){
+    public Post recuperarDatosGUI(){
         
-        btnAddPost.setEnabled(true);
-        btnUpdatePost.setEnabled(true);
-        btnCancelar.setEnabled(false);
-        txtTituloPost.setEditable(false);
-        txtAutorPost.setEditable(false);
-        txtDiscoPost.setEditable(false);
-        txtAreaPost.setEditable(false);
+        String titulo = txtTituloPost.getText();
+        String autor = txtAutorPost.getText();
+        String discoPost = txtDiscoPost.getText();
+        String contenido = txtAreaPost.getText();
+        
+        return new Post(titulo, autor, discoPost, contenido);
         
     }
     
-        private void cargarPostsEnTabla() {
-        List<Post> posts = iPost.getPosts();
-        for (Post post : posts) {
-            String[] rowData = {
-                post.getTitulo(),
-                post.getAutor(),
-                post.getDiscoPost(),
-                post.getContenido()
-            };
-            modelo.addRow(rowData);
-        }
+     public List<Post> getPosts() {
+        return listaPosts;
     }
+    
+    public void agregarPost(){
        
+        Post objPost = recuperarDatosGUI();
+               
+        if (listaPosts != null && modelo != null) {
+        listaPosts.add(objPost);
+        modelo.addRow(new Object[]{objPost.getTitulo(), objPost.getAutor(), objPost.getDiscoPost(), objPost.getContenido()});
+        guardarDatosEnArchivo();
+    } else {
+        System.err.println("Error: listaDiscos o modelo no está inicializado.");
+    } 
+        
+    }
+  
+    //Metodo para cargar los datos en la tabla, usamos metodo para cargar los datos desde el archivo .dat
+    
+    public void cargarDatos(){
+        
+        cargarDatosDesdeArchivo();
+        modelo.setRowCount(0); // Limpiar tabla
+        for (Post post : listaPosts) {
+            modelo.addRow(new Object[]{post.getTitulo(), post.getAutor(), post.getDiscoPost(), post.getContenido()});
+        }
+        
+    }
+    
+    //Metodo para guardar y cargar los datos en el archivo.dat
+    
+    public void guardarDatosEnArchivo() {
+    
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("posts.dat"))) {
+        oos.writeObject(listaPosts);
+        }catch (IOException e) {
+        e.printStackTrace();
+    
+        }
+    
+    }
+    
+    
+    public void cargarDatosDesdeArchivo() {
+    
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("posts.dat"))) {
+        listaPosts = (List<Post>) ois.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+  
+    
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
-         System.exit(0);
+        guardarDatosEnArchivo();
+        System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
 
     private void exitTxtMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseEntered
@@ -414,6 +565,7 @@ public class GUIForo extends javax.swing.JFrame {
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
         this.setVisible(false);
+        guardarDatosEnArchivo();
         GUILogIn iLogIn = new GUILogIn();
         iLogIn.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionMouseClicked
@@ -439,13 +591,43 @@ public class GUIForo extends javax.swing.JFrame {
         yMouse = evt.getY();
     }//GEN-LAST:event_headerMousePressed
 
-    private void btnAddPostActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAddPostActionPerformed
+    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
+
+        limpiarCampos();
+        defaultCampos();
         
+    }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAgregarActionPerformed
+
+        btnPublicar.setEnabled(true);
+        btnCancelar.setEnabled(true);
+        btnForo.setEnabled(false);
+        txtTituloPost.setEditable(true);
+        txtAutorPost.setEditable(true);
+        txtDiscoPost.setEditable(true);
+        txtAreaPost.setEditable(true);
+    }//GEN-LAST:event_btnAgregarActionPerformed
+
+    private void btnForoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnForoActionPerformed
         this.setVisible(false);
-        iPost.setVisible(true);
-        iPost.cargarDatos();
-        
-    }//GEN-LAST:event_btnAddPostActionPerformed
+        GUIForo iForo = new GUIForo();
+        iForo.setVisible(true);
+        guardarDatosEnArchivo();
+        cargarDatos();
+    }//GEN-LAST:event_btnForoActionPerformed
+
+    private void txtTituloPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtTituloPostMouseClicked
+       defaultFieldTitulo();
+    }//GEN-LAST:event_txtTituloPostMouseClicked
+
+    private void txtAutorPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtAutorPostMouseClicked
+        defaultFieldAutor();
+    }//GEN-LAST:event_txtAutorPostMouseClicked
+
+    private void txtDiscoPostMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtDiscoPostMouseClicked
+        defaultFieldDisco();
+    }//GEN-LAST:event_txtDiscoPostMouseClicked
 
     private void tblPostsMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_tblPostsMouseClicked
 
@@ -462,21 +644,20 @@ public class GUIForo extends javax.swing.JFrame {
             txtDiscoPost.setForeground(Color.black);
             txtAreaPost.setText(receptor.getModel().getValueAt(selectedRow, 3).toString());
             txtDiscoPost.setForeground(Color.black);
-
-            btnAddPost.setEnabled(false);
-            btnUpdatePost.setEnabled(false);
+            
+            btnAgregar.setEnabled(false);
             btnCancelar.setEnabled(true);
+            btnForo.setEnabled(false);
 
-        }
-
+            }
+   
     }//GEN-LAST:event_tblPostsMouseClicked
 
-    private void btnCancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnCancelarActionPerformed
-
-        limpiarCampos();
+    private void btnPublicarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnPublicarMouseClicked
+        agregarPost();
         defaultCampos();
-
-    }//GEN-LAST:event_btnCancelarActionPerformed
+        limpiarCampos();
+    }//GEN-LAST:event_btnPublicarMouseClicked
 
     /**
      * @param args the command line arguments
@@ -495,34 +676,36 @@ public class GUIForo extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(GUIForo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(GUIForo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(GUIForo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(GUIForo.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(GUIPost.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new GUIForo().setVisible(true);
+                new GUIPost().setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btnAddPost;
+    private javax.swing.JPanel bgPanel;
+    private javax.swing.JButton btnAgregar;
     private javax.swing.JButton btnCancelar;
     private javax.swing.JPanel btnCerrarSesion;
     private javax.swing.JPanel btnExit;
+    private javax.swing.JButton btnForo;
     private javax.swing.JPanel btnHome;
-    private javax.swing.JButton btnUpdatePost;
+    private javax.swing.JButton btnPublicar;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;
@@ -533,8 +716,8 @@ public class GUIForo extends javax.swing.JFrame {
     private javax.swing.JLabel lblListaPosts;
     private javax.swing.JLabel lblLogo;
     private javax.swing.JLabel lblNuevoPost;
+    private javax.swing.JLabel lblNuevoPost1;
     private javax.swing.JLabel lblRightBg;
-    private javax.swing.JLabel lblTituloForo;
     private javax.swing.JLabel lblTituloPost;
     private javax.swing.JLabel lblTxtCerrarSesion;
     private javax.swing.JLabel lblUser;
