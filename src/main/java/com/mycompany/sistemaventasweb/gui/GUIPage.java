@@ -455,6 +455,7 @@ public class GUIPage extends javax.swing.JFrame {
         btnEliminar.setEnabled(false);
         btnAceptar.setEnabled(false);
         btnCancelar.setEnabled(false);
+        btnAgrCarrito.setEnabled(false);
         txtNombreDisco.setEditable(false);
         txtInterprete.setEditable(false);
         txtPrecio.setEditable(false);
@@ -515,6 +516,8 @@ public class GUIPage extends javax.swing.JFrame {
 
     }
     
+    //Metodo para cargar los datos en la tabla, usamos metodo para cargar los datos desde el archivo .dat
+    
     public void cargarDatos(){
         
         cargarDatosDesdeArchivo();
@@ -563,6 +566,8 @@ public class GUIPage extends javax.swing.JFrame {
         
     }
     
+    //Metodo para guardar y cargar los datos en el archivo.dat
+    
     public void guardarDatosEnArchivo() {
     
         try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("discos.dat"))) {
@@ -581,8 +586,6 @@ public class GUIPage extends javax.swing.JFrame {
         e.printStackTrace();
     }
 }
-
-
 
     //Metodo limpiar campos
     
@@ -775,10 +778,22 @@ public class GUIPage extends javax.swing.JFrame {
          txtPrecio.setText(receptor.getModel().getValueAt(selectedRow, 3).toString());
          txtPrecio.setForeground(Color.black);
          
-         btnModificar.setEnabled(true);
-         btnEliminar.setEnabled(true);
-         btnAgregar.setEnabled(false);
-         btnCancelar.setEnabled(true);
+                if(lblUser.getText().equals("¡Bienvenido Admin!")){
+                    
+                            btnModificar.setEnabled(true);
+                            btnEliminar.setEnabled(true);
+                            btnAgregar.setEnabled(false);
+                            btnCancelar.setEnabled(true);
+        
+                }else{
+                    
+                            btnAgrCarrito.setEnabled(true);
+                            btnForo.setEnabled(false);
+                            btnIrCarrito.setEnabled(false);         
+                    
+                }
+         
+
         
         }
         

@@ -18,6 +18,7 @@ public class GUILogIn extends javax.swing.JFrame {
      * Creates new form GUILogIn
      */
     
+    //Iniciamos variable x & y para poder setear el mover la ventana
     int xMouse, yMouse;
     
     public GUILogIn() {
@@ -228,6 +229,8 @@ public class GUILogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Evento donde se preisona el header y se mueve
+    
     private void headerMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_headerMousePressed
         
         xMouse = evt.getX();
@@ -242,6 +245,8 @@ public class GUILogIn extends javax.swing.JFrame {
         this.setLocation(x - xMouse,y - yMouse);
     }//GEN-LAST:event_headerMouseDragged
 
+    //Boton salir
+    
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
         System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
@@ -256,6 +261,8 @@ public class GUILogIn extends javax.swing.JFrame {
         exitTxt.setForeground(Color.white);
     }//GEN-LAST:event_exitTxtMouseEntered
 
+    //Boton inicio sesion
+    
     private void btnLogInMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseEntered
         btnLogIn.setBackground(new Color(255,192,255));
     }//GEN-LAST:event_btnLogInMouseEntered
@@ -264,6 +271,8 @@ public class GUILogIn extends javax.swing.JFrame {
         btnLogIn.setBackground(new Color(255, 102, 153));
     }//GEN-LAST:event_btnLogInMouseExited
 
+    //Metodos para que se mantengan las leyendas por default - solo se desactivan haciendo click e ingresando el texto
+    
     private void txtUsuarioMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txtUsuarioMousePressed
         
         if(txtUsuario.getText().equals("Ingrese su nombre de usuario")){
@@ -289,6 +298,8 @@ public class GUILogIn extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_txtContraseñaMousePressed
 
+    //Metodo para determinar si el usuario que ingresa es admin o user, dependiendo de esto habilita los botones
+    
     private void btnLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseClicked
 
         SistemaVentasWeb objSistemaVentasWeb = new SistemaVentasWeb();
