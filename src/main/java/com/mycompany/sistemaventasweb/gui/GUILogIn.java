@@ -5,7 +5,6 @@
 package com.mycompany.sistemaventasweb.gui;
 
 import com.mycompany.sistemaventasweb.SistemaVentasWeb;
-import com.mycompany.sistemaventasweb.clases.Usuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -299,8 +298,10 @@ public class GUILogIn extends javax.swing.JFrame {
         this.setVisible(false);
         GUIPage iGUIPage = new GUIPage();
         iGUIPage.setVisible(true);
+        iGUIPage.cargarDatosDesdeArchivo();
         iGUIPage.definirUsuarioAdmin();
         iGUIPage.mostrarBotonesAdmin();
+        iGUIPage.cargarDatos();
         
             
         }else if(txtUsuario.getText().equals(objSistemaVentasWeb.normalUsuario().getNombre()) && String.valueOf(txtContraseña.getPassword()).equals(objSistemaVentasWeb.normalUsuario().getContraseña())){
@@ -308,8 +309,10 @@ public class GUILogIn extends javax.swing.JFrame {
         this.setVisible(false);
         GUIPage iGUIPage = new GUIPage();
         iGUIPage.setVisible(true);
+        iGUIPage.cargarDatosDesdeArchivo();
         iGUIPage.definirUsuarioComun();
         iGUIPage.mostrarBotonesUser();
+        iGUIPage.cargarDatos();
             
         }
         

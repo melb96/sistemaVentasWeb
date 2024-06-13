@@ -6,6 +6,11 @@ package com.mycompany.sistemaventasweb.gui;
 
 import com.mycompany.sistemaventasweb.clases.Disco;
 import java.awt.Color;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -420,28 +425,24 @@ public class GUIPage extends javax.swing.JFrame {
     
     public Disco recuperarDatosGUI(){
         
-        Disco objDisco = new Disco();
-        
-        double precio = (txtPrecio.getText().isEmpty()) ?0: Double.parseDouble(txtPrecio.getText());
-        
-        objDisco.setTitulo(txtNombreDisco.getText());
-        objDisco.setInterprete(txtInterprete.getText());
+        String nombre = txtNombreDisco.getText();
+        String interprete = txtInterprete.getText();
+        double precio = txtPrecio.getText().isEmpty() ? 0 : Double.parseDouble(txtPrecio.getText());
+        String genero = "";
         
         if (rdbRock.isSelected()) {
-            objDisco.setGenero("Rock");
+            genero = "Rock";
         }else if (rdbPop.isSelected()) {
-            objDisco.setGenero("Pop");
+            genero = "Pop";
         }else if (rdbTechno.isSelected()) {
-            objDisco.setGenero("Techno");
+            genero = "Techno";
         }else if(rdbCumbia.isSelected()){
-            objDisco.setGenero("Cumbia");
+            genero = "Cumbia";
         }else if(rdbReggaeton.isSelected()){
-            objDisco.setGenero("Reggaeton");
-        }else objDisco.setGenero("Otro");
+            genero = "Reggaeton";
+        }else genero = "Otro";
         
-        objDisco.setPrecio(precio);
-        
-        return objDisco;
+        return new Disco(nombre, interprete, genero, precio);
         
     }
     
@@ -501,16 +502,27 @@ public class GUIPage extends javax.swing.JFrame {
     //Metodo agregar Datos
     
     public void agregarDatos(){
-        
+     
     Disco objDisco = recuperarDatosGUI();
         
     if (listaDiscos != null && modelo != null) {
         listaDiscos.add(objDisco);
-        modelo.addRow(new Object[]{objDisco.getTitulo(), objDisco.getInterprete(), objDisco.getGenero(), objDisco.getPrecio()});
+        modelo.addRow(new Object[]{objDisco.getNombre(), objDisco.getInterprete(), objDisco.getGenero(), objDisco.getPrecio()});
+        guardarDatosEnArchivo();
     } else {
         System.err.println("Error: listaDiscos o modelo no está inicializado.");
     }  
 
+    }
+    
+    public void cargarDatos(){
+        
+        cargarDatosDesdeArchivo();
+        modelo.setRowCount(0); // Limpiar tabla
+        for (Disco disco : listaDiscos) {
+            modelo.addRow(new Object[]{disco.getNombre(), disco.getInterprete(), disco.getGenero(), disco.getPrecio()});
+        }
+        
     }
     
     //Metodo modificar Datos
@@ -522,7 +534,7 @@ public class GUIPage extends javax.swing.JFrame {
             Disco objDisco = recuperarDatosGUI();
             
             listaDiscos.set(selectedRow, objDisco);
-            modelo.setValueAt(objDisco.getTitulo(), selectedRow, 0);
+            modelo.setValueAt(objDisco.getNombre(), selectedRow, 0);
             modelo.setValueAt(objDisco.getInterprete(), selectedRow, 1);
             modelo.setValueAt(objDisco.getGenero(), selectedRow, 2);
             modelo.setValueAt(objDisco.getPrecio(), selectedRow, 3);
@@ -550,6 +562,27 @@ public class GUIPage extends javax.swing.JFrame {
         }       
         
     }
+    
+    public void guardarDatosEnArchivo() {
+    
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("discos.dat"))) {
+        oos.writeObject(listaDiscos);
+        }catch (IOException e) {
+        e.printStackTrace();
+    
+        }
+    
+    }
+    
+    public void cargarDatosDesdeArchivo() {
+    try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("discos.dat"))) {
+        listaDiscos = (List<Disco>) ois.readObject();
+    } catch (IOException | ClassNotFoundException e) {
+        e.printStackTrace();
+    }
+}
+
+
 
     //Metodo limpiar campos
     
@@ -637,6 +670,7 @@ public class GUIPage extends javax.swing.JFrame {
     //Boton salir
     
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
+        guardarDatosEnArchivo();
         System.exit(0);
     }//GEN-LAST:event_exitTxtMouseClicked
 
@@ -694,11 +728,14 @@ public class GUIPage extends javax.swing.JFrame {
     
     private void btnAceptarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnAceptarActionPerformed
         if(btnAgregar.isEnabled()){
-        agregarDatos();}
+            agregarDatos();
+            defaultCampos();
+        }
         else if (btnModificar.isEnabled()){
             modificarDatos();
+            defaultCampos();
         }
-        defaultCampos();
+
     }//GEN-LAST:event_btnAceptarActionPerformed
 
     //Boton cancelar
@@ -775,6 +812,7 @@ public class GUIPage extends javax.swing.JFrame {
 
     private void btnCerrarSesionMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnCerrarSesionMouseClicked
         this.setVisible(false);
+        guardarDatosEnArchivo();
         GUILogIn iLogIn = new GUILogIn();
         iLogIn.setVisible(true);
     }//GEN-LAST:event_btnCerrarSesionMouseClicked

@@ -3,26 +3,38 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package com.mycompany.sistemaventasweb.clases;
+import java.io.Serializable;
 
 /**
  *
  * @author melb
  */
-public class Disco {
+public class Disco implements Serializable{
     
-    private String titulo;
+    private String nombre;
     private String interprete;
     private String genero;
     private double precio;
     
+    private static final long serialVersionUID = 1L; // Número de versión para la serialización
+    
+    //Constructor
+
+    public Disco(String nombre, String interprete, String genero, double precio) {
+        this.nombre = nombre;
+        this.interprete = interprete;
+        this.genero = genero;
+        this.precio = precio;
+    }
+    
     //Getters and Setters
 
-    public String getTitulo() {
-        return titulo;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setTitulo(String titulo) {
-        this.titulo = titulo;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public String getInterprete() {

@@ -6,6 +6,7 @@ package com.mycompany.sistemaventasweb;
 
 import com.mycompany.sistemaventasweb.clases.Usuario;
 import com.mycompany.sistemaventasweb.gui.GUILogIn;
+import com.mycompany.sistemaventasweb.gui.GUIPage;
 
 /**
  *
@@ -17,6 +18,8 @@ public class SistemaVentasWeb {
 
         GUILogIn iLogIn = new GUILogIn();
         iLogIn.setVisible(true);
+        GUIPage iPage = new GUIPage();
+        iPage.cargarDatosDesdeArchivo();
         
 }
     
