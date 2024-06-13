@@ -4,6 +4,8 @@
  */
 package com.mycompany.sistemaventasweb.gui;
 
+import com.mycompany.sistemaventasweb.SistemaVentasWeb;
+import com.mycompany.sistemaventasweb.clases.Usuario;
 import java.awt.Color;
 import javax.swing.JOptionPane;
 
@@ -289,9 +291,10 @@ public class GUILogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_txtContraseñaMousePressed
 
     private void btnLogInMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnLogInMouseClicked
+
+        SistemaVentasWeb objSistemaVentasWeb = new SistemaVentasWeb();
         
-        
-        if(txtUsuario.getText().equals("admin") && String.valueOf(txtContraseña.getPassword()).equals("admin")){
+        if(txtUsuario.getText().equals(objSistemaVentasWeb.adminUsuario().getNombre()) && String.valueOf(txtContraseña.getPassword()).equals(objSistemaVentasWeb.adminUsuario().getContraseña())){
             
         this.setVisible(false);
         GUIPage iGUIPage = new GUIPage();
@@ -300,7 +303,7 @@ public class GUILogIn extends javax.swing.JFrame {
         iGUIPage.mostrarBotonesAdmin();
         
             
-        }else if(txtUsuario.getText().equals("user") && String.valueOf(txtContraseña.getPassword()).equals("password")){
+        }else if(txtUsuario.getText().equals(objSistemaVentasWeb.normalUsuario().getNombre()) && String.valueOf(txtContraseña.getPassword()).equals(objSistemaVentasWeb.normalUsuario().getContraseña())){
         
         this.setVisible(false);
         GUIPage iGUIPage = new GUIPage();

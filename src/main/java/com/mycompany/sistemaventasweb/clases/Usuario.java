@@ -12,8 +12,17 @@ public class Usuario {
     
     private String nombre;
     private String email;
-    private String contrasenia;
+    private String contraseña;
     private String tipo;
+
+    //Constructor
+    
+    public Usuario(String nombre, String email, String contraseña, String tipo) {
+        this.nombre = nombre;
+        this.email = email;
+        this.contraseña = contraseña;
+        this.tipo = tipo;
+    }
     
     //Getters and Setters
 
@@ -33,12 +42,12 @@ public class Usuario {
         this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
+    public String getContraseña() {
+        return contraseña;
     }
 
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
+    public void setContraseña(String contraseña) {
+        this.contraseña = contraseña;
     }
 
     public String getTipo() {

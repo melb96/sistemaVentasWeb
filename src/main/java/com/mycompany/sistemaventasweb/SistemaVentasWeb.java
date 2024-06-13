@@ -4,6 +4,7 @@
 
 package com.mycompany.sistemaventasweb;
 
+import com.mycompany.sistemaventasweb.clases.Usuario;
 import com.mycompany.sistemaventasweb.gui.GUILogIn;
 
 /**
@@ -17,5 +18,18 @@ public class SistemaVentasWeb {
         GUILogIn iLogIn = new GUILogIn();
         iLogIn.setVisible(true);
         
+}
+    
+   public Usuario adminUsuario(){
+            
+       return new Usuario("admin", "admin@email.com", "admin", "administrador");
+
     }
+   
+   public Usuario normalUsuario(){
+       
+       return new Usuario("user", "user@email.com", "password", "usuario");
+       
+   }
+    
 }
