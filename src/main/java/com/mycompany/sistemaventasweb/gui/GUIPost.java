@@ -632,6 +632,7 @@ public class GUIPost extends javax.swing.JFrame {
         this.setVisible(false);
         GUIForo iForo = new GUIForo();
         iForo.setVisible(true);
+        iForo.definirUsuarioComun();
         guardarDatosEnArchivo();
         cargarDatos();
     }//GEN-LAST:event_btnForoActionPerformed
