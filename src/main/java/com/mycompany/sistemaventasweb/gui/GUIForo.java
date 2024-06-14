@@ -376,6 +376,7 @@ public class GUIForo extends javax.swing.JFrame {
         
     }
     
+    //Metodo para setear campos por default
     public void defaultCampos(){
         
         btnAddPost.setEnabled(true);
@@ -387,6 +388,7 @@ public class GUIForo extends javax.swing.JFrame {
         
     }
     
+    //metodo para cargar los posts ingresados en la tabla del foro
         private void cargarPostsEnTabla() {
         List<Post> posts = iPost.getPosts();
         for (Post post : posts) {
@@ -399,7 +401,7 @@ public class GUIForo extends javax.swing.JFrame {
             modelo.addRow(rowData);
         }
     }
-        
+     //metodo para setear el mensaje de bienvenida   
     public void definirUsuarioComun(){
         
         lblUser.setText("¡Bienvenido User!");

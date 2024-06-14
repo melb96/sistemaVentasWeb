@@ -1,0 +1,19 @@
+Detalle de Compra
+
+Nombre: Clancy
+Interprete: Twenty One Pilots
+Genero: Rock
+Precio: $17800,00
+
+Nombre: Morning Glory
+Interprete: Oasis
+Genero: Rock
+Precio: $11200,00
+
+Nombre: Blurryface
+Interprete: Twenty One Pilots
+Genero: Rock
+Precio: $14800,00
+
+Total de la Compra: $43800,00
+Medio de Pago: Efectivo

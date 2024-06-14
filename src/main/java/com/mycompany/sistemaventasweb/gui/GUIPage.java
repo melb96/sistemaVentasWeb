@@ -62,12 +62,12 @@ public class GUIPage extends javax.swing.JFrame {
         rdbGrupo = new javax.swing.ButtonGroup();
         bgPanel = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnEliminar = new javax.swing.JButton();
         btnIrCarrito = new javax.swing.JButton();
-        btnAgregar = new javax.swing.JButton();
+        btnEliminar = new javax.swing.JButton();
         btnAgrCarrito = new javax.swing.JButton();
-        btnModificar = new javax.swing.JButton();
+        btnAgregar = new javax.swing.JButton();
         btnForo = new javax.swing.JButton();
+        btnModificar = new javax.swing.JButton();
         btnAceptar = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblRightBg = new javax.swing.JLabel();
@@ -107,6 +107,20 @@ public class GUIPage extends javax.swing.JFrame {
         lblLogo.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/disco3.png")); // NOI18N
         bgPanel.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
 
+        btnIrCarrito.setBackground(new java.awt.Color(255, 102, 153));
+        btnIrCarrito.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        btnIrCarrito.setForeground(new java.awt.Color(0, 0, 0));
+        btnIrCarrito.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/carrito-de-compras.png")); // NOI18N
+        btnIrCarrito.setText("Carrito");
+        btnIrCarrito.setMaximumSize(new java.awt.Dimension(105, 24));
+        btnIrCarrito.setMinimumSize(new java.awt.Dimension(105, 24));
+        btnIrCarrito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnIrCarritoMouseClicked(evt);
+            }
+        });
+        bgPanel.add(btnIrCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 110, 30));
+
         btnEliminar.setBackground(new java.awt.Color(255, 102, 153));
         btnEliminar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
         btnEliminar.setForeground(new java.awt.Color(0, 0, 0));
@@ -119,14 +133,17 @@ public class GUIPage extends javax.swing.JFrame {
         });
         bgPanel.add(btnEliminar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 110, -1));
 
-        btnIrCarrito.setBackground(new java.awt.Color(255, 102, 153));
-        btnIrCarrito.setFont(new java.awt.Font("Roboto Slab", 1, 10)); // NOI18N
-        btnIrCarrito.setForeground(new java.awt.Color(0, 0, 0));
-        btnIrCarrito.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/carrito-de-compras.png")); // NOI18N
-        btnIrCarrito.setText("Ir al Carrito");
-        btnIrCarrito.setMaximumSize(new java.awt.Dimension(105, 24));
-        btnIrCarrito.setMinimumSize(new java.awt.Dimension(105, 24));
-        bgPanel.add(btnIrCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 110, 30));
+        btnAgrCarrito.setBackground(new java.awt.Color(255, 102, 153));
+        btnAgrCarrito.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        btnAgrCarrito.setForeground(new java.awt.Color(0, 0, 0));
+        btnAgrCarrito.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/carrito-de-compra-anadir.png")); // NOI18N
+        btnAgrCarrito.setText("Al carrito");
+        btnAgrCarrito.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnAgrCarritoMouseClicked(evt);
+            }
+        });
+        bgPanel.add(btnAgrCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, 30));
 
         btnAgregar.setBackground(new java.awt.Color(255, 102, 153));
         btnAgregar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
@@ -140,25 +157,6 @@ public class GUIPage extends javax.swing.JFrame {
         });
         bgPanel.add(btnAgregar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, -1));
 
-        btnAgrCarrito.setBackground(new java.awt.Color(255, 102, 153));
-        btnAgrCarrito.setFont(new java.awt.Font("Roboto Slab", 1, 9)); // NOI18N
-        btnAgrCarrito.setForeground(new java.awt.Color(0, 0, 0));
-        btnAgrCarrito.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/carrito-de-compra-anadir.png")); // NOI18N
-        btnAgrCarrito.setText("CD al Carrito");
-        bgPanel.add(btnAgrCarrito, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 130, 110, 30));
-
-        btnModificar.setBackground(new java.awt.Color(255, 102, 153));
-        btnModificar.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
-        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
-        btnModificar.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/lapiz.png")); // NOI18N
-        btnModificar.setText("Modificar");
-        btnModificar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btnModificarActionPerformed(evt);
-            }
-        });
-        bgPanel.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
-
         btnForo.setBackground(new java.awt.Color(255, 102, 153));
         btnForo.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
         btnForo.setForeground(new java.awt.Color(0, 0, 0));
@@ -171,7 +169,19 @@ public class GUIPage extends javax.swing.JFrame {
                 btnForoActionPerformed(evt);
             }
         });
-        bgPanel.add(btnForo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
+        bgPanel.add(btnForo, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, 30));
+
+        btnModificar.setBackground(new java.awt.Color(255, 102, 153));
+        btnModificar.setFont(new java.awt.Font("Roboto Slab", 1, 12)); // NOI18N
+        btnModificar.setForeground(new java.awt.Color(0, 0, 0));
+        btnModificar.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/lapiz.png")); // NOI18N
+        btnModificar.setText("Modificar");
+        btnModificar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btnModificarActionPerformed(evt);
+            }
+        });
+        bgPanel.add(btnModificar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
 
         btnAceptar.setBackground(new java.awt.Color(255, 102, 153));
         btnAceptar.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
@@ -851,6 +861,28 @@ public class GUIPage extends javax.swing.JFrame {
            iForo.definirUsuarioComun();
         }
     }//GEN-LAST:event_btnForoActionPerformed
+
+    //boton agregar al carrito
+    private void btnAgrCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnAgrCarritoMouseClicked
+        Disco disco = recuperarDatosGUI();
+        GUICarrito iCarrito = new GUICarrito();
+        iCarrito.agregarCarrito(disco);
+        iCarrito.guardarDatosEnArchivo();
+    }//GEN-LAST:event_btnAgrCarritoMouseClicked
+    
+    //boton ir al carrito
+    private void btnIrCarritoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnIrCarritoMouseClicked
+        this.setVisible(false);
+        GUICarrito iCarrito = new GUICarrito();
+        iCarrito.setVisible(true);
+        iCarrito.cargarDatosDesdeArchivo();
+        iCarrito.actualizarTabla();
+        iCarrito.contarElementosCarrito();
+        iCarrito.sumarTotal();
+        if(lblUser.getText().equals("¡Bienvenido User!")){
+           iCarrito.definirUsuarioComun();
+        }
+    }//GEN-LAST:event_btnIrCarritoMouseClicked
 
     /**
      * @param args the command line arguments

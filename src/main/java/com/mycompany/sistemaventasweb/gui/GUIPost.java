@@ -410,7 +410,7 @@ public class GUIPost extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    
+    //Seteamos campos por defecto
     public void defaultCampos(){
         
         btnAgregar.setEnabled(true);
@@ -424,6 +424,7 @@ public class GUIPost extends javax.swing.JFrame {
         
     }
     
+    //Definimos el mensaje de bienvenida, dependiendo tipo de usuario
     public void definirUsuarioComun(){
         
         lblUser.setText("¡Bienvenido User!");
@@ -500,6 +501,7 @@ public class GUIPost extends javax.swing.JFrame {
         
     }
     
+    //Tomamos los datos ingresados en la interface
     public Post recuperarDatosGUI(){
         
         String titulo = txtTituloPost.getText();
@@ -515,6 +517,7 @@ public class GUIPost extends javax.swing.JFrame {
         return listaPosts;
     }
     
+     //metodo para crear Post
     public void agregarPost(){
        
         Post objPost = recuperarDatosGUI();
@@ -553,7 +556,6 @@ public class GUIPost extends javax.swing.JFrame {
         }
     
     }
-    
     
     public void cargarDatosDesdeArchivo() {
     
