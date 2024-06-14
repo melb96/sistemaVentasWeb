@@ -255,6 +255,18 @@ public class GUICarrito extends javax.swing.JFrame {
         Date date = new Date();
         return dateFormat.format(date);
     }
+    
+    //Metodo para limpiar carrito
+    
+    public void limpiarCarrito() {
+    listaCarrito.clear();  // Vaciar la lista del carrito
+    modelo.setRowCount(0);  // Limpiar la tabla en la GUI
+    cCarrito.setTotalProductos(0);  // Resetear el total de productos
+    cCarrito.setTotalCompra(0.0);  // Resetear el total de la compra
+    lblProductos.setText("0");  // Actualizar el campo de texto de productos
+    lblTotal.setText("0.00");  // Actualizar el campo de texto del total
+    guardarDatosEnArchivo();  // Guardar el estado vacío del carrito en el archivo
+}
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -796,6 +808,7 @@ public class GUICarrito extends javax.swing.JFrame {
 
         // Generar archivo de texto con los datos del carrito y total de compra
         generarArchivoTexto(medioPago);
+        limpiarCarrito();
     }//GEN-LAST:event_btnComprarMouseClicked
 
     /**

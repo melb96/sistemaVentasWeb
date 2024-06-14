@@ -1,0 +1,14 @@
+Detalle de Compra
+
+Nombre: Clancy
+Interprete: Twenty One Pilots
+Genero: Rock
+Precio: $17800,00
+
+Nombre: Blurryface
+Interprete: Twenty One Pilots
+Genero: Rock
+Precio: $14800,00
+
+Total de la Compra: $32600,00
+Medio de Pago: Tarjeta
