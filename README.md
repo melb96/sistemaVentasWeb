@@ -1,6 +1,7 @@
 <h1 align="center">TP Nº 4 - SISTEMA VENTAS DISCOS WEB</h1>
 
 <h2 align="center">Luna Bazán, Mateo</h2>
+<h2 align="center">Romero, Fabio Renee</h2>
 
 <p align="center"> Este es un proyecto ABMS desarrollado en Java utilizando el IDE NetBeans. Su finalidad es permitir agregar, modificar y eliminar discos musicales; También permitir a un usuario comprar estos discos.</p>
 
