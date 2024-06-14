@@ -22,6 +22,7 @@ public class GUIForo extends javax.swing.JFrame {
     
     int xMouse, yMouse;
     GUIPost iPost = new GUIPost();
+    GUIPage iPage = new GUIPage();
     DefaultTableModel modelo;
     private int selectedRow = -1;
     
@@ -52,7 +53,6 @@ public class GUIForo extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         lblLogo = new javax.swing.JLabel();
-        btnUpdatePost = new javax.swing.JButton();
         btnAddPost = new javax.swing.JButton();
         btnCancelar = new javax.swing.JButton();
         lblRightBg = new javax.swing.JLabel();
@@ -83,7 +83,6 @@ public class GUIForo extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
@@ -91,13 +90,6 @@ public class GUIForo extends javax.swing.JFrame {
 
         lblLogo.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/disco3.png")); // NOI18N
         jPanel1.add(lblLogo, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 40, -1, -1));
-
-        btnUpdatePost.setBackground(new java.awt.Color(255, 102, 153));
-        btnUpdatePost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
-        btnUpdatePost.setForeground(new java.awt.Color(0, 0, 0));
-        btnUpdatePost.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/actualizar.png")); // NOI18N
-        btnUpdatePost.setText("Cargar");
-        jPanel1.add(btnUpdatePost, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
 
         btnAddPost.setBackground(new java.awt.Color(255, 102, 153));
         btnAddPost.setFont(new java.awt.Font("Roboto Slab", 1, 13)); // NOI18N
@@ -121,7 +113,7 @@ public class GUIForo extends javax.swing.JFrame {
                 btnCancelarActionPerformed(evt);
             }
         });
-        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 210, 110, -1));
+        jPanel1.add(btnCancelar, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 170, 110, -1));
 
         lblRightBg.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/bgImagen.jpg")); // NOI18N
         lblRightBg.setText("jLabel1");
@@ -221,6 +213,17 @@ public class GUIForo extends javax.swing.JFrame {
         );
 
         btnHome.setBackground(new java.awt.Color(255, 255, 255));
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHomeMouseExited(evt);
+            }
+        });
 
         lblHome.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/hogar.png")); // NOI18N
 
@@ -376,7 +379,6 @@ public class GUIForo extends javax.swing.JFrame {
     public void defaultCampos(){
         
         btnAddPost.setEnabled(true);
-        btnUpdatePost.setEnabled(true);
         btnCancelar.setEnabled(false);
         txtTituloPost.setEditable(false);
         txtAutorPost.setEditable(false);
@@ -397,6 +399,12 @@ public class GUIForo extends javax.swing.JFrame {
             modelo.addRow(rowData);
         }
     }
+        
+    public void definirUsuarioComun(){
+        
+        lblUser.setText("¡Bienvenido User!");
+        
+    }    
        
     private void exitTxtMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_exitTxtMouseClicked
          System.exit(0);
@@ -444,6 +452,7 @@ public class GUIForo extends javax.swing.JFrame {
         this.setVisible(false);
         iPost.setVisible(true);
         iPost.cargarDatos();
+        iPost.definirUsuarioComun();
         
     }//GEN-LAST:event_btnAddPostActionPerformed
 
@@ -464,7 +473,6 @@ public class GUIForo extends javax.swing.JFrame {
             txtDiscoPost.setForeground(Color.black);
 
             btnAddPost.setEnabled(false);
-            btnUpdatePost.setEnabled(false);
             btnCancelar.setEnabled(true);
 
         }
@@ -477,6 +485,24 @@ public class GUIForo extends javax.swing.JFrame {
         defaultCampos();
 
     }//GEN-LAST:event_btnCancelarActionPerformed
+
+    private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
+        btnHome.setBackground(Color.red);
+    }//GEN-LAST:event_btnHomeMouseEntered
+
+    private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
+        btnHome.setBackground(Color.white);
+    }//GEN-LAST:event_btnHomeMouseExited
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.setVisible(false);
+        iPage.setVisible(true);
+        if(lblUser.getText().equals("¡Bienvenido User!")){
+            iPage.definirUsuarioComun();
+            iPage.mostrarBotonesUser();
+            iPage.cargarDatos();
+        }
+    }//GEN-LAST:event_btnHomeMouseClicked
 
     /**
      * @param args the command line arguments
@@ -519,7 +545,6 @@ public class GUIForo extends javax.swing.JFrame {
     private javax.swing.JPanel btnCerrarSesion;
     private javax.swing.JPanel btnExit;
     private javax.swing.JPanel btnHome;
-    private javax.swing.JButton btnUpdatePost;
     private javax.swing.JLabel exitTxt;
     private javax.swing.JPanel header;
     private javax.swing.JPanel jPanel1;

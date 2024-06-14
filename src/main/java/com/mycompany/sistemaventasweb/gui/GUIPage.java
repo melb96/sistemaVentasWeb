@@ -461,6 +461,8 @@ public class GUIPage extends javax.swing.JFrame {
         btnAceptar.setEnabled(false);
         btnCancelar.setEnabled(false);
         btnAgrCarrito.setEnabled(false);
+        btnForo.setEnabled(true);
+        btnIrCarrito.setEnabled(true);
         txtNombreDisco.setEditable(false);
         txtInterprete.setEditable(false);
         txtPrecio.setEditable(false);
@@ -795,7 +797,8 @@ public class GUIPage extends javax.swing.JFrame {
                     
                             btnAgrCarrito.setEnabled(true);
                             btnForo.setEnabled(false);
-                            btnIrCarrito.setEnabled(false);         
+                            btnIrCarrito.setEnabled(false);   
+                            btnCancelar.setEnabled(true);
                     
                 }
          
@@ -844,6 +847,9 @@ public class GUIPage extends javax.swing.JFrame {
         iForo.setVisible(true);
         GUIPost iPost = new GUIPost();
         iPost.cargarDatos();
+        if(lblUser.getText().equals("¡Bienvenido User!")){
+           iForo.definirUsuarioComun();
+        }
     }//GEN-LAST:event_btnForoActionPerformed
 
     /**

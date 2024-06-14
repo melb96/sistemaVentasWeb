@@ -30,6 +30,7 @@ public class GUIPost extends javax.swing.JFrame {
     private List<Post> listaPosts;
     DefaultTableModel modelo;
     private int selectedRow = -1;
+    GUIPage iPage = new GUIPage();
     
     public GUIPost() {
         initComponents();
@@ -87,7 +88,6 @@ public class GUIPost extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
         setUndecorated(true);
-        setPreferredSize(new java.awt.Dimension(800, 500));
         setResizable(false);
 
         bgPanel.setBackground(new java.awt.Color(255, 255, 255));
@@ -245,6 +245,17 @@ public class GUIPost extends javax.swing.JFrame {
         );
 
         btnHome.setBackground(new java.awt.Color(255, 255, 255));
+        btnHome.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btnHomeMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btnHomeMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btnHomeMouseExited(evt);
+            }
+        });
 
         lblHome.setIcon(new javax.swing.ImageIcon("/home/melb/NetBeansProjects/sistemaVentasWeb/src/main/java/com/mycompany/sistemaventasweb/resources/iconos/hogar.png")); // NOI18N
 
@@ -412,6 +423,12 @@ public class GUIPost extends javax.swing.JFrame {
         txtAreaPost.setEditable(false);
         
     }
+    
+    public void definirUsuarioComun(){
+        
+        lblUser.setText("¡Bienvenido User!");
+        
+    }   
     
     //Metodo text field Titulo
     
@@ -658,6 +675,24 @@ public class GUIPost extends javax.swing.JFrame {
         defaultCampos();
         limpiarCampos();
     }//GEN-LAST:event_btnPublicarMouseClicked
+
+    private void btnHomeMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseEntered
+        btnHome.setBackground(Color.red);
+    }//GEN-LAST:event_btnHomeMouseEntered
+
+    private void btnHomeMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseExited
+        btnHome.setBackground(Color.white);
+    }//GEN-LAST:event_btnHomeMouseExited
+
+    private void btnHomeMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnHomeMouseClicked
+        this.setVisible(false);
+        iPage.setVisible(true);
+        if(lblUser.getText().equals("¡Bienvenido User!")){
+            iPage.definirUsuarioComun();
+            iPage.mostrarBotonesUser();
+            iPage.cargarDatos();
+        }
+    }//GEN-LAST:event_btnHomeMouseClicked
 
     /**
      * @param args the command line arguments

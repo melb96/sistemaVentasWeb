@@ -1,6 +1,7 @@
 com/mycompany/sistemaventasweb/gui/GUIPage$3.class
 com/mycompany/sistemaventasweb/gui/GUILogIn$5.class
 com/mycompany/sistemaventasweb/gui/GUIForo.class
+com/mycompany/sistemaventasweb/gui/GUIForo$9.class
 com/mycompany/sistemaventasweb/gui/GUIPost$7.class
 com/mycompany/sistemaventasweb/gui/GUILogIn$2.class
 com/mycompany/sistemaventasweb/SistemaVentasWeb.class
@@ -31,6 +32,7 @@ com/mycompany/sistemaventasweb/gui/GUIPage$15.class
 com/mycompany/sistemaventasweb/gui/GUIForo$7.class
 com/mycompany/sistemaventasweb/gui/GUIPost$9.class
 com/mycompany/sistemaventasweb/gui/GUIPost$2.class
+com/mycompany/sistemaventasweb/gui/GUIPost$14.class
 com/mycompany/sistemaventasweb/gui/GUILogIn$7.class
 com/mycompany/sistemaventasweb/gui/GUILogIn.class
 com/mycompany/sistemaventasweb/gui/GUIPost$10.class
