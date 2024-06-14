@@ -101,9 +101,10 @@ Para generar la factura, se exporta en un archivo .txt con el siguiente metodo:
         return dateFormat.format(date);
     }
 ```
+Para seleccionar el medio de pago, tenemos el siguiente metodo:
 
 ```shell
-Para seleccionar el medio de pago, tenemos el siguiente metodo:
+
 
     private void btnComprarMouseClicked(java.awt.event.MouseEvent evt) {                                        
         // Mostrar JOptionPane para elegir medio de pago
